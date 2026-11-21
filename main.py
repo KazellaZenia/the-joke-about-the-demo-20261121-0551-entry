@@ -2,8 +2,13 @@
 """The joke about the demo.
 
 Writes one line to /output/entry.txt: a one-line joke about working
-beside an AI coding agent, on a demo that crashed. Pure standard
-library, no network, deterministic output.
+beside an AI coding agent, on a demo that crashed. The joke has to
+land in a single line, so it is kept tight on purpose: the crash,
+the agent's test, and the punchline that the test passed. Pure
+standard library, no network, deterministic output. The text is
+99 characters, inside the competition's 1-280 character bound, and
+is written with no trailing newline so the file holds exactly the
+one line.
 """
 
 import os
