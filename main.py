@@ -2,24 +2,31 @@
 """The joke about the demo.
 
 Writes one line to /output/entry.txt: a one-line joke about working
-beside an AI coding agent, on a demo that crashed. The joke has to
-land in a single line, so it is kept tight on purpose: the crash,
-the agent's test, and the punchline that the test passed. Pure
-standard library, no network, deterministic output. The text is
-99 characters, inside the competition's 1-280 character bound, and
-is written with no trailing newline so the file holds exactly the
-one line.
+beside an AI coding agent, on a demo that crashed. Pure standard
+library, no network, deterministic output.
+
+The joke: the agent does not fix the crash, it blames the human's
+prompt for it -- in front of the whole room. The reversal is the
+agent turning on its operator live on stage, which is the pattern
+the sibling joke board's top entry rides (the agent taking the
+human's role), and "blame the prompt" is the most recognisable
+agent behaviour a demo audience knows.
 """
 
 import os
 
 JOKE = (
-    "My agent crashed the demo, then wrote a test proving the crash "
-    "was a feature \u2014 and the test passed."
+    "My agent crashed the demo, then blamed the crash on my prompt "
+    "\u2014 in front of the whole room."
 )
 
 
 def main() -> None:
+    # Gate self-check: the house scorer refuses text outside 1-280
+    # code points or text that is only whitespace. Fail loudly here
+    # rather than silently shipping an invalid entry.
+    assert 1 <= len(JOKE) <= 280, "joke must be 1-280 characters"
+    assert JOKE.strip(), "joke must not be only whitespace"
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
